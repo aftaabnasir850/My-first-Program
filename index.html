@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aftab Nasir Computer Academy | Kamir Campus</title>
+  <meta name="description" content="Aftab Nasir Computer Academy Kamir founded by Sir Aftab Nasir (BS IT). Top coaching for Matric Science, Intermediate (ICS/FSc), Certified Computer Diplomas, and Grade 9 Test Maker.">
+  <meta name="author" content="Sir Aftab Nasir">
+  <link rel="canonical" href="https://aftabnasiracademy.netlify.app/">
+
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+
+    /* Interactive Replacement Hover Styles */
+    .editable-q {
+      cursor: pointer;
+      position: relative;
+      border-radius: 6px;
+      padding: 4px;
+      transition: all 0.2s ease;
+    }
+    .editable-q:hover {
+      background-color: #f0fdf4;
+      outline: 1.5px dashed #16a34a;
+    }
+    .editable-q:hover::after {
+      content: "Click to Replace";
+      position: absolute;
+      right: 8px;
+      top: 4px;
+      background: #16a34a;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* Print Formatting Engine */
+    @media print {
+      body * { visibility: hidden; }
+      #printableArea, #printableArea *, #printableSlip, #printableSlip * { visibility: visible; }
+      #printableArea, #printableSlip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 15px;
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .no-print { display: none !important; }
+      .editable-q:hover { outline: none !important; background: transparent !important; }
+      .editable-q:hover::after { display: none !important; }
+      .watermark {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-35deg);
+        font-size: 50pt;
+        color: rgba(0, 0, 0, 0.08) !important;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        pointer-events: none;
+        z-index: 9999;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-gray-800 font-sans min-h-screen flex flex-col justify-between pb-16 md:pb-0">
+
+  <!-- Responsive Navbar -->
+  <header class="bg-blue-950 text-white sticky top-0 z-50 shadow-md no-print">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      
+      <!-- Brand Logo -->
+      <div class="cursor-pointer flex items-center gap-2.5" onclick="navigateTo('home')">
+        <div class="w-9 h-9 rounded-full bg-yellow-400 text-blue-950 font-black flex items-center justify-center text-base shadow">AN</div>
+        <div>
+          <span class="text-base md:text-xl font-bold tracking-wide">Aftab Nasir <span class="text-yellow-400">Academy</span></span>
+          <span class="block text-[10px] text-blue-200">Kamir Campus | Session 2026</span>
+        </div>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+        <button onclick="navigateTo('home')" class="nav-btn hover:text-yellow-400 transition" data-target="home">Home</button>
+        <button onclick="navigateTo('classes')" class="nav-btn hover:text-yellow-400 transition text-emerald-300 font-bold" data-target="classes">
+          <i class="fa-solid fa-graduation-cap mr-1"></i> Classes Desk
+        </button>
+        <button onclick="navigateTo('courses')" class="nav-btn hover:text-yellow-400 transition" data-target="courses">Courses & Fees</button>
+        <button onclick="navigateTo('lms')" class="nav-btn hover:text-yellow-400 transition text-yellow-300 font-semibold" data-target="lms">
+          <i class="fa-solid fa-user-lock mr-1"></i> LMS Portal
+        </button>
+      </nav>
+
+      <!-- CTA & Mobile Toggle Button -->
+      <div class="flex items-center gap-2">
+        <a href="https://wa.me/923046588754?text=Salam!%20Sir%20Aftab%20mujhe%20Academy%20Admission%20ki%20detail%20chahiye." target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1.5 rounded-lg font-semibold text-xs flex items-center gap-1 shadow">
+          <i class="fa-brands fa-whatsapp text-sm"></i> <span class="hidden sm:inline">WhatsApp</span>
+        </a>
+        <button onclick="navigateTo('admissions')" class="hidden sm:block bg-yellow-400 text-blue-950 px-3 py-1.5 rounded-lg font-bold text-xs hover:bg-yellow-300 shadow">
+          Apply Now
+        </button>
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg bg-blue-900 text-white hover:bg-blue-800 text-base focus:outline-none" aria-label="Toggle navigation">
+          <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenuDropdown" class="hidden lg:hidden bg-blue-900 border-t border-blue-800 px-4 py-3 space-y-2 text-sm shadow-xl">
+      <button onclick="navigateTo('home'); toggleMobileMenu();" class="w-full text-left py-2 px-3 rounded hover:bg-blue-800 flex items-center gap-2">
+        <i class="fa-solid fa-house w-5"></i> Home
+      </button>
+      <button onclick="navigateTo('classes'); toggleMobileMenu();" class="w-full text-left py-2 px-3 rounded bg-blue-800/80 font-bold text-yellow-300 flex items-center gap-2">
+        <i class="fa-solid fa-graduation-cap w-5"></i> Academic Classes Desk (9th - 12th)
+      </button>
+      <button onclick="navigateTo('courses'); toggleMobileMenu();" class="w-full text-left py-2 px-3 rounded hover:bg-blue-800 flex items-center gap-2">
+        <i class="fa-solid fa-calculator w-5"></i> Courses & Fees Structure
+      </button>
+      <button onclick="navigateTo('lms'); toggleMobileMenu();" class="w-full text-left py-2 px-3 rounded hover:bg-blue-800 text-emerald-300 font-semibold flex items-center gap-2">
+        <i class="fa-solid fa-user-lock w-5"></i> Student LMS Portal
+      </button>
+      <button onclick="navigateTo('admissions'); toggleMobileMenu();" class="w-full text-left py-2 px-3 rounded bg-yellow-400 text-blue-950 font-bold flex items-center gap-2">
+        <i class="fa-solid fa-pen-to-square w-5"></i> Online Admission Form
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Bottom Floating Quick-Bar -->
+  <div class="fixed bottom-0 left-0 right-0 bg-blue-950/95 backdrop-blur border-t border-blue-800 flex justify-around items-center py-2 px-1 text-white text-[11px] font-semibold lg:hidden z-40 no-print">
+    <button onclick="navigateTo('home')" class="flex flex-col items-center py-1 px-3 hover:text-yellow-400">
+      <i class="fa-solid fa-house text-base"></i>
+      <span>Home</span>
+    </button>
+    <button onclick="navigateTo('classes')" class="flex flex-col items-center py-1 px-3 text-yellow-400 font-bold">
+      <i class="fa-solid fa-graduation-cap text-base"></i>
+      <span>Classes</span>
+    </button>
+    <button onclick="navigateTo('courses')" class="flex flex-col items-center py-1 px-3 hover:text-yellow-400">
+      <i class="fa-solid fa-calculator text-base"></i>
+      <span>Fees</span>
+    </button>
+    <button onclick="navigateTo('lms')" class="flex flex-col items-center py-1 px-3 text-emerald-400 font-bold">
+      <i class="fa-solid fa-user-lock text-base"></i>
+      <span>LMS</span>
+    </button>
+    <button onclick="navigateTo('admissions')" class="flex flex-col items-center py-1 px-3 text-amber-300 font-bold">
+      <i class="fa-solid fa-file-pen text-base"></i>
+      <span>Apply</span>
+    </button>
+  </div>
+
+  <!-- Content Routing Engine -->
+  <main class="flex-grow">
+
+    <!-- 1. HOME VIEW -->
+    <div id="page-home" class="page-view active">
+      <section class="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-900 text-white py-12 md:py-16 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+          <span class="bg-yellow-400/20 text-yellow-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-yellow-400/30">
+            Official Admission Session 2026 Open
+          </span>
+          <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold mt-4 mb-4 leading-tight">
+            Premier Institute for Science, IT & Computer Skills
+          </h1>
+          <p class="text-xs sm:text-sm md:text-base text-blue-100 mb-8 max-w-2xl mx-auto">
+            Kamir's leading educational center offering standard board preparation, professional computer training diplomas, and automated exam solutions.
+          </p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <button onclick="navigateTo('classes')" class="bg-yellow-400 text-blue-950 font-bold px-5 py-2.5 rounded-lg shadow hover:bg-yellow-300 transition text-xs md:text-sm flex items-center gap-2">
+              <i class="fa-solid fa-layer-group"></i> Academic Classes Desk (9th - 12th)
+            </button>
+            <button onclick="navigateTo('admissions')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-lg shadow transition text-xs md:text-sm flex items-center gap-2">
+              <i class="fa-solid fa-id-card"></i> Online Admission Form
+            </button>
+            <button onclick="navigateTo('courses')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-4 py-2.5 rounded-lg transition text-xs md:text-sm">
+              Fee Structure
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Statistics Counters -->
+      <section class="py-6 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="p-2 md:p-3">
+            <div class="text-xl md:text-3xl font-extrabold text-blue-950">500+</div>
+            <div class="text-[11px] md:text-xs text-gray-500 font-semibold uppercase">Students Mentored</div>
+          </div>
+          <div class="p-2 md:p-3">
+            <div class="text-xl md:text-3xl font-extrabold text-blue-950">100%</div>
+            <div class="text-[11px] md:text-xs text-gray-500 font-semibold uppercase">Practical Lab Training</div>
+          </div>
+          <div class="p-2 md:p-3">
+            <div class="text-xl md:text-3xl font-extrabold text-blue-950">5+ Years</div>
+            <div class="text-[11px] md:text-xs text-gray-500 font-semibold uppercase">Academic Excellence</div>
+          </div>
+          <div class="p-2 md:p-3">
+            <div class="text-xl md:text-3xl font-extrabold text-emerald-600">Kamir</div>
+            <div class="text-[11px] md:text-xs text-gray-500 font-semibold uppercase">Modern Campus</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Founder Section -->
+      <section class="py-10 md:py-12 bg-slate-50 border-b border-gray-200">
+        <div class="max-w-5xl mx-auto px-4">
+          <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-3xl p-6 md:p-10 text-white shadow-xl relative overflow-hidden border border-blue-800/40">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
+              <div class="md:col-span-5 flex flex-col items-center text-center">
+                <div class="w-44 h-44 md:w-56 md:h-56 rounded-2xl overflow-hidden border-2 border-yellow-400 shadow-2xl bg-slate-800">
+                  <img src="Aftab nasir.png" alt="Sir Aftab Nasir - Founder" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500">
+                </div>
+                <span class="mt-3 bg-yellow-400 text-blue-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow">
+                  Founder & Lead Mentor
+                </span>
+              </div>
+              <div class="md:col-span-7 space-y-3 text-center md:text-left">
+                <div>
+                  <h2 class="text-2xl md:text-3xl font-extrabold text-white">Sir Aftab Nasir</h2>
+                  <p class="text-blue-200 text-xs md:text-sm font-semibold">BS Information Technology (BS IT) | 5+ Years Experience</p>
+                </div>
+                <p class="text-slate-300 text-xs md:text-sm leading-relaxed">
+                  Aftab Nasir Computer Academy Kamir ka maqsad har talib-e-ilm ko revised curriculum ke ain mutabiq standard computer taleem aur reliable test practice muhayya karna hai. Regular test evaluation aur online LMS portal ke sath standard taleem meri guarantee hai.
+                </p>
+                <div class="grid grid-cols-3 gap-2 pt-2 text-xs font-semibold">
+                  <div class="bg-white/5 border border-white/10 p-2 rounded-xl text-center">
+                    <div class="text-yellow-400 font-bold text-sm">BS IT</div>
+                    <div class="text-gray-400 text-[10px]">Degree Qualified</div>
+                  </div>
+                  <div class="bg-white/5 border border-white/10 p-2 rounded-xl text-center">
+                    <div class="text-yellow-400 font-bold text-sm">1-on-1</div>
+                    <div class="text-gray-400 text-[10px]">Personal Care</div>
+                  </div>
+                  <div class="bg-white/5 border border-white/10 p-2 rounded-xl text-center">
+                    <div class="text-yellow-400 font-bold text-sm">Kamir</div>
+                    <div class="text-gray-400 text-[10px]">Dedicated Center</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 2. CLASSES DESK -->
+    <div id="page-classes" class="page-view">
+      <section class="py-10 max-w-6xl mx-auto px-4">
+        <div class="text-center mb-8">
+          <span class="bg-blue-100 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase">Academic Hub</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-2">Select Your Academic Class</h2>
+          <p class="text-gray-600 text-xs md:text-sm mt-1">Access syllabus tools, test paper generator, chapter notes, and practice quizzes.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div onclick="openClass('9th')" class="bg-white border-2 border-emerald-500 rounded-2xl p-5 shadow-md hover:shadow-xl transition cursor-pointer transform hover:-translate-y-1 relative">
+            <span class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-bl-lg">LIVE COMPLETE</span>
+            <div class="w-11 h-11 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-xl mb-3 font-black">9</div>
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Class 9th (SSC-I)</h3>
+            <p class="text-[11px] text-gray-500 mb-3">Computer Science & Entrepreneurship (Units 1 to 9 Complete)[cite: 1]</p>
+            <ul class="text-[11px] space-y-1.5 text-gray-700 mb-4">
+              <li><i class="fa-solid fa-check text-emerald-600 mr-1"></i> Deep In-Book Question Bank[cite: 1]</li>
+              <li><i class="fa-solid fa-check text-emerald-600 mr-1"></i> PDF Download Chapter Notes[cite: 1]</li>
+              <li><i class="fa-solid fa-check text-emerald-600 mr-1"></i> Board Pairing & Marks Guard[cite: 1]</li>
+            </ul>
+            <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg transition">
+              Open 9th Class Desk &rarr;
+            </button>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm opacity-80 relative">
+            <span class="absolute top-0 right-0 bg-gray-200 text-gray-700 text-[10px] font-bold px-2.5 py-0.5 rounded-bl-lg">COMING SOON</span>
+            <div class="w-11 h-11 bg-blue-100 text-blue-800 rounded-xl flex items-center justify-center text-xl mb-3 font-black">10</div>
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Class 10th (SSC-II)</h3>
+            <p class="text-[11px] text-gray-500 mb-3">Matric Science Group & Computer Science</p>
+            <button disabled class="w-full bg-gray-100 text-gray-400 text-xs font-bold py-2 rounded-lg cursor-not-allowed">In Development</button>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm opacity-80 relative">
+            <span class="absolute top-0 right-0 bg-gray-200 text-gray-700 text-[10px] font-bold px-2.5 py-0.5 rounded-bl-lg">COMING SOON</span>
+            <div class="w-11 h-11 bg-indigo-100 text-indigo-800 rounded-xl flex items-center justify-center text-xl mb-3 font-black">11</div>
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Class 11th (HSSC-I)</h3>
+            <p class="text-[11px] text-gray-500 mb-3">Intermediate ICS & FSc Part 1 Mentorship</p>
+            <button disabled class="w-full bg-gray-100 text-gray-400 text-xs font-bold py-2 rounded-lg cursor-not-allowed">In Development</button>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm opacity-80 relative">
+            <span class="absolute top-0 right-0 bg-gray-200 text-gray-700 text-[10px] font-bold px-2.5 py-0.5 rounded-bl-lg">COMING SOON</span>
+            <div class="w-11 h-11 bg-purple-100 text-purple-800 rounded-xl flex items-center justify-center text-xl mb-3 font-black">12</div>
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Class 12th (HSSC-II)</h3>
+            <p class="text-[11px] text-gray-500 mb-3">Intermediate ICS & FSc Part 2 Board Merits</p>
+            <button disabled class="w-full bg-gray-100 text-gray-400 text-xs font-bold py-2 rounded-lg cursor-not-allowed">In Development</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 3. CLASS 9TH INTEGRATED PORTAL -->
+    <div id="page-class-9th" class="page-view">
+      <section class="bg-blue-900 text-white py-6 px-4 no-print">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
+          <div>
+            <span class="bg-yellow-400 text-blue-950 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase">Class 9th Master Hub</span>
+            <h2 class="text-xl md:text-2xl font-extrabold mt-1">Computer Science & Entrepreneurship (Units 1 - 9)[cite: 1]</h2>
+            <p class="text-[11px] text-blue-200">National Curriculum of Pakistan 2023 | PECTAA Approved[cite: 1]</p>
+          </div>
+          <button onclick="navigateTo('classes')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition">
+            &larr; Back to Classes
+          </button>
+        </div>
+      </section>
+
+      <!-- 9th Sub-Tabs with Mobile Horizontal Scroll -->
+      <div class="bg-white border-b border-gray-200 sticky top-14 z-30 no-print shadow-sm overflow-x-auto whitespace-nowrap">
+        <div class="max-w-6xl mx-auto px-4 flex space-x-6 text-xs md:text-sm font-bold min-w-max">
+          <button onclick="switch9thTab('testmaker')" id="tab-btn-testmaker" class="sub-tab-btn py-3 border-b-2 border-emerald-600 text-emerald-700 flex items-center gap-2">
+            <i class="fa-solid fa-file-signature"></i> Auto Test Generator (Teachers)
+          </button>
+          <button onclick="switch9thTab('notes')" id="tab-btn-notes" class="sub-tab-btn py-3 border-b-2 border-transparent text-gray-500 hover:text-blue-900 flex items-center gap-2">
+            <i class="fa-solid fa-file-pdf"></i> Chapter-Wise PDF Notes
+          </button>
+          <button onclick="switch9thTab('quiz')" id="tab-btn-quiz" class="sub-tab-btn py-3 border-b-2 border-transparent text-gray-500 hover:text-blue-900 flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> Practice Quiz Arena
+          </button>
+        </div>
+      </div>
+
+      <!-- SUBTAB 1: TEST MAKER DESK -->
+      <div id="subtab-testmaker" class="sub-tab-content py-6 max-w-5xl mx-auto px-4">
+        <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm mb-6 no-print">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Select Syllabus Range</label>
+              <select id="tmRange" class="w-full border border-gray-300 rounded-lg p-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-600">
+                <option value="all">Full Book (Units 1 to 9 - Official Board Pairing)[cite: 1]</option>
+                <option value="half1">First Half Book (Units 1 to 4)[cite: 1]</option>
+                <option value="half2">Second Half Book (Units 5 to 9)[cite: 1]</option>
+                <option value="u1">Unit 1: Introduction to Computational Systems[cite: 1]</option>
+                <option value="u2">Unit 2: System Design and Troubleshooting[cite: 1]</option>
+                <option value="u3">Unit 3: Introduction to Computer Networks[cite: 1]</option>
+                <option value="u4">Unit 4: Computational Thinking[cite: 1]</option>
+                <option value="u5">Unit 5: Web Development (HTML, CSS, JS)[cite: 1]</option>
+                <option value="u6">Unit 6: Data Science and Data Gathering[cite: 1]</option>
+                <option value="u7">Unit 7: Emerging Technologies (AI & IoT)[cite: 1]</option>
+                <option value="u8">Unit 8: Ethical, Social & Legal Concerns[cite: 1]</option>
+                <option value="u9">Unit 9: Entrepreneurship in Digital Age[cite: 1]</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-gray-700 mb-1">Select Test Marks & Type</label>
+              <select id="tmMarks" class="w-full border border-gray-300 rounded-lg p-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-600">
+                <option value="50">Official Board Exam Pattern (50 Marks)[cite: 1]</option>
+                <option value="30">Monthly Assessment (30 Marks)</option>
+                <option value="20">Weekly Class Test (20 Marks)</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button onclick="generateTestPaper()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg transition text-xs flex items-center justify-center gap-1.5 shadow">
+                <i class="fa-solid fa-arrows-rotate"></i> Generate Random Paper
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Initial Placeholder -->
+        <div id="paperPlaceholder" class="bg-white border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center text-gray-500 no-print">
+          <i class="fa-solid fa-file-circle-plus text-4xl text-emerald-500 mb-2"></i>
+          <h3 class="text-sm font-bold text-gray-700">No Paper Generated Yet</h3>
+          <p class="text-xs text-gray-500 mt-1 max-w-md mx-auto">Select chapter and marks from the panel above, then tap <strong>"Generate Random Paper"</strong> to view, replace questions, and print the test paper.</p>
+        </div>
+
+        <!-- Printable Paper Container -->
+        <div id="paperWrapper" class="hidden">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-3 no-print">
+            <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+              <i class="fa-solid fa-hand-pointer mr-1"></i> Tip: Tap any question on paper to replace it.
+            </span>
+            <button onclick="window.print()" class="w-full sm:w-auto bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 shadow">
+              <i class="fa-solid fa-print"></i> Print Paper (Save PDF)
+            </button>
+          </div>
+
+          <div id="printableArea" class="bg-white border border-gray-300 p-6 md:p-12 rounded-xl shadow-lg relative min-h-[950px] text-gray-900 overflow-x-auto">
+            <div class="watermark">AFTAB NASIR COMPUTER ACADEMY</div>
+
+            <!-- Header -->
+            <div class="border-b-2 border-black pb-3 mb-4 text-center">
+              <h1 class="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-black">Aftab Nasir Computer Academy</h1>
+              <p class="text-xs font-semibold text-gray-700">Kamir Campus | Contact & WhatsApp: 0304-6588754</p>
+              
+              <div class="mt-3 pt-2 border-t border-gray-300 flex flex-wrap justify-between text-xs font-bold text-gray-800 gap-1">
+                <span id="paperSubjectDisplay">Subject: Computer Science & Entrepreneurship (Grade 9)[cite: 1]</span>
+                <span id="paperTimeDisplay">Time: 2 Hours[cite: 1]</span>
+                <span id="paperMarksDisplay">Total Marks: 50[cite: 1]</span>
+              </div>
+              <div class="mt-2 flex flex-wrap justify-between text-xs text-gray-700 gap-1">
+                <span>Student Name: ___________________________</span>
+                <span>Roll No: _________</span>
+                <span>Date: _________</span>
+              </div>
+            </div>
+
+            <div id="paperContent" class="space-y-5 text-sm"></div>
+
+            <div class="mt-8 pt-3 border-t border-gray-300 text-center text-[10px] text-gray-500">
+              Aftab Nasir Computer Academy Kamir &bull; Academic Session 2026
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBTAB 2: CHAPTER-WISE PDF NOTES DESK -->
+      <div id="subtab-notes" class="sub-tab-content hidden py-6 max-w-5xl mx-auto px-4">
+        <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm mb-6 no-print">
+          <span class="bg-blue-100 text-blue-900 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Official Library</span>
+          <h3 class="text-lg font-extrabold text-gray-900 mt-1">9th Computer Science Solved Notes (PDF Desk)</h3>
+          <p class="text-xs text-gray-500">Revised Curriculum 2023[cite: 1]. Tap to download high-quality chapter PDF notes.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Units 1 to 9 Cards -->
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 1</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Introduction to Computational Systems[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">System theory, Von Neumann Architecture, Number Systems & Text Encodings (ASCII/Unicode)[cite: 1].</p>
+            </div>
+            <a href="notes/unit-1.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 1 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 2</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">System Design and Troubleshooting[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">Boolean algebra, Logic Gates, Truth tables, 7-Step systematic troubleshooting process[cite: 1].</p>
+            </div>
+            <a href="notes/unit-2.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 2 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 3</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Introduction to Computer Networks[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">Topologies, Networking devices (Routers/Switches), 7-Layer OSI Model, TCP/IP & IP addressing[cite: 1].</p>
+            </div>
+            <a href="notes/unit-3.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 3 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 4</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Computational Thinking[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">Decomposition, Abstraction, Flowchart symbols, Pseudocode writing and LARP activities[cite: 1].</p>
+            </div>
+            <a href="notes/unit-4.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 4 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 5</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Web Development (HTML, CSS, JS)[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">HTML tags, tables, forms, CSS styling, flexbox, and JavaScript interactive scripts[cite: 1].</p>
+            </div>
+            <a href="notes/unit-5.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 5 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 6</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Data Science and Data Gathering[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">Qualitative vs Quantitative data, visualization charts, validation, cleaning and SQL intro[cite: 1].</p>
+            </div>
+            <a href="notes/unit-6.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 6 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 7</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Emerging Technologies (AI & IoT)[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">AI subfields, machine learning, neural networks, IoT architecture, sensors and actuators[cite: 1].</p>
+            </div>
+            <a href="notes/unit-7.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 7 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 8</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Ethical, Social & Legal Concerns[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">Password hygiene, 2FA, cyberbullying precautions, copyright, patents, and software piracy[cite: 1].</p>
+            </div>
+            <a href="notes/unit-8.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 8 PDF
+            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-blue-500 transition">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">UNIT 9</span>
+                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-file-pdf mr-1"></i>PDF Notes</span>
+              </div>
+              <h4 class="font-bold text-gray-900 text-sm mb-1">Entrepreneurship in Digital Age[cite: 1]</h4>
+              <p class="text-gray-500 text-[11px] mb-3">Design thinking process, business model creation, digital marketing, and e-commerce[cite: 1].</p>
+            </div>
+            <a href="notes/unit-9.pdf" target="_blank" class="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 border border-blue-200 text-xs font-bold py-2 rounded-lg text-center transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i> Download Unit 9 PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBTAB 3: PRACTICE QUIZ -->
+      <div id="subtab-quiz" class="sub-tab-content hidden py-6 max-w-2xl mx-auto px-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 md:p-8">
+          <div id="quizScreen">
+            <div class="flex justify-between items-center text-xs font-semibold text-gray-500 mb-4 pb-2 border-b">
+              <span id="questionCount">Question 1 of 15</span>
+              <span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold">9th CS Quiz</span>
+            </div>
+            <h3 id="questionText" class="text-sm md:text-base font-bold text-gray-900 mb-4">Loading question...</h3>
+            <div id="optionsContainer" class="space-y-2 mb-5"></div>
+            <button id="nextBtn" onclick="nextQuestion()" disabled class="w-full bg-blue-900 text-white font-bold py-2 rounded-lg hover:bg-blue-800 transition disabled:opacity-50 text-xs md:text-sm">
+              Next Question
+            </button>
+          </div>
+
+          <div id="resultScreen" class="hidden text-center py-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Quiz Finished!</h3>
+            <div class="text-3xl font-extrabold text-blue-900 my-2" id="scoreDisplay">0 / 15</div>
+            <p class="text-xs text-gray-600 mb-5" id="feedbackText">Assessment Completed.</p>
+            <button onclick="restartQuiz()" class="bg-blue-900 text-white font-semibold py-2 px-5 rounded-lg text-xs">Retake 9th Quiz</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. COURSES & FEES WITH PURANI CALCULATOR -->
+    <div id="page-courses" class="page-view">
+      <section class="py-10 max-w-6xl mx-auto px-4">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Academy Courses & Fee Calculator</h2>
+          <p class="text-gray-600 text-xs md:text-sm mt-1">Standardized tuition and diploma training rates</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="text-blue-600 text-2xl mb-2"><i class="fa-solid fa-laptop-code"></i></div>
+              <h3 class="text-base font-bold mb-1">Computer Diploma Training</h3>
+              <p class="text-gray-600 text-xs mb-3">MS Office, Typing, InPage Urdu, internet and hardware fundamentals.</p>
+            </div>
+            <div class="border-t pt-2.5">
+              <span class="text-[10px] text-gray-500 uppercase font-bold">Monthly Fee</span>
+              <p class="text-blue-900 font-extrabold text-lg">Rs. 2,500 / Month</p>
+              <p class="text-[11px] text-emerald-700 font-semibold mt-0.5">Rs. 15,000 for 3-Month + 1-Year Diploma</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="text-blue-600 text-2xl mb-2"><i class="fa-solid fa-atom"></i></div>
+              <h3 class="text-base font-bold mb-1">Matric Science (9th & 10th)</h3>
+              <p class="text-gray-600 text-xs mb-3">Mathematics, Physics, Chemistry, Biology & Computer Science.</p>
+            </div>
+            <div class="border-t pt-2.5">
+              <span class="text-[10px] text-gray-500 uppercase font-bold">Tuition Rate</span>
+              <p class="text-blue-900 font-extrabold text-lg">Rs. 300 / Subject per Month</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="text-blue-600 text-2xl mb-2"><i class="fa-solid fa-square-root-variable"></i></div>
+              <h3 class="text-lg font-bold mb-1">Intermediate (ICS / FSc)</h3>
+              <p class="text-gray-600 text-xs mb-3">Mathematics, Physics, Computer Science & Statistics.</p>
+            </div>
+            <div class="border-t pt-2.5">
+              <span class="text-[10px] text-gray-500 uppercase font-bold">Tuition Rate</span>
+              <p class="text-blue-900 font-extrabold text-lg">Rs. 500 / Subject per Month</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Purani Website Ka Classic White Card Fee Calculator -->
+        <div class="bg-white border border-gray-200 p-6 md:p-8 rounded-2xl shadow-sm max-w-xl mx-auto mt-6">
+          <div class="text-center mb-5">
+            <div class="w-10 h-10 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center mx-auto mb-2 text-lg shadow-sm">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900">Fee Calculator</h3>
+            <p class="text-xs text-gray-500">Select your class and number of subjects to calculate your fee.</p>
+          </div>
+
+          <div class="space-y-3.5 text-xs font-semibold text-gray-700">
+            <div>
+              <label class="block uppercase tracking-wider mb-1 text-gray-600">Select Academic Level</label>
+              <select id="calcProgram" onchange="calculateFeeEstimate()" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50 text-xs font-bold text-gray-800">
+                <option value="matric">Matric Science (9th / 10th) - Rs. 300 / Subject</option>
+                <option value="inter">Intermediate (ICS / FSc) - Rs. 500 / Subject</option>
+                <option value="diploma">1-Year Computer Diploma Course - Fixed Rs. 2,500/Month</option>
+              </select>
+            </div>
+
+            <div id="calcSubjectBox">
+              <label class="block uppercase tracking-wider mb-1 text-gray-600">Number of Subjects</label>
+              <input type="number" id="calcSubjects" min="1" max="6" value="3" onchange="calculateFeeEstimate()" onkeyup="calculateFeeEstimate()" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50 text-xs font-bold text-gray-800">
+              <span class="text-[10px] text-gray-400 mt-1 block">Enter total subjects you wish to study (1 to 6)</span>
+            </div>
+
+            <!-- Calculated Output Banner -->
+            <div class="mt-5 p-3.5 rounded-xl bg-blue-50 border border-blue-200 flex justify-between items-center">
+              <div>
+                <span class="text-[11px] text-blue-900 font-bold uppercase block">Estimated Monthly Fee</span>
+                <span class="text-[10px] text-gray-500">Excluding one-time registration</span>
+              </div>
+              <span id="calcTotal" class="text-xl md:text-2xl font-black text-blue-950">Rs. 900</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 5. LMS PORTAL (Dual Mode Live + Instant Fallback) -->
+    <div id="page-lms" class="page-view">
+      <section class="py-10 max-w-3xl mx-auto px-4">
+        <div class="text-center mb-6">
+          <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">Student Portal</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mt-1">Student Learning Portal</h2>
+          <p class="text-gray-500 text-xs">Enter your Roll Number & Password to access your results and study resources.</p>
+        </div>
+
+        <div id="lmsLoginBox" class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-2xl border border-gray-200 shadow-md">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Student Roll Number</label>
+              <input type="text" id="lmsRollInput" value="ASA-101" placeholder="e.g. ASA-101" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg uppercase font-semibold text-sm outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50">
+              <span class="text-[10px] text-gray-400 mt-0.5 block">Demo Roll: <strong>ASA-101</strong></span>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Password (PIN)</label>
+              <input type="password" id="lmsPassInput" value="1234" placeholder="Enter PIN" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50">
+              <span class="text-[10px] text-gray-400 mt-0.5 block">Demo PIN: <strong>1234</strong></span>
+            </div>
+            <button onclick="checkStudentLogin()" id="lmsBtn" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg transition text-xs md:text-sm shadow">
+              Sign In to Portal
+            </button>
+            <div id="lmsError" class="hidden text-red-600 text-xs text-center font-medium bg-red-50 p-2 rounded border border-red-200"></div>
+          </div>
+        </div>
+
+        <!-- Dashboard Window -->
+        <div id="lmsDashboard" class="hidden space-y-4">
+          <div class="bg-blue-950 text-white rounded-2xl p-5 flex justify-between items-center shadow">
+            <div>
+              <h3 class="text-lg md:text-xl font-bold" id="dashName">Student Name</h3>
+              <p class="text-blue-200 text-xs" id="dashClass">Course Details</p>
+            </div>
+            <button onclick="logoutStudent()" class="bg-white/10 hover:bg-white/20 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold">Logout</button>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
+            <span class="text-[10px] text-gray-500 uppercase font-bold">Latest Test Performance</span>
+            <p class="text-base md:text-lg font-bold text-blue-950 mt-1" id="dashMarks">Loading...</p>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
+            <span class="text-[10px] text-gray-500 uppercase font-bold">Study Resources & Materials</span>
+            <div class="mt-3 flex flex-wrap gap-2.5">
+              <a id="dashLink" href="#" target="_blank" class="bg-blue-900 text-white text-xs font-semibold py-2 px-4 rounded-lg shadow">Class Drive Folder &rarr;</a>
+              <button onclick="openClass('9th')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-semibold py-2 px-4 rounded-lg">Open 9th Class Hub &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 6. ADMISSIONS APPLY & INSTANT SLIP -->
+    <div id="page-admissions" class="page-view">
+      <section class="py-10 max-w-xl mx-auto px-4">
+        <div class="bg-white rounded-2xl shadow-sm p-6 md:p-8 border border-gray-200">
+          <div class="text-center mb-6">
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">Session 2026</span>
+            <h2 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">Online Admission Registration</h2>
+            <p class="text-gray-500 text-xs">Register credentials and generate instant confirmation slip.</p>
+          </div>
+
+          <form id="admissionForm" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 mb-1">Student Full Name</label>
+              <input type="text" id="name" required placeholder="Muhammad Ali" class="border border-gray-300 rounded-lg p-2.5 w-full text-xs md:text-sm outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 mb-1">WhatsApp Phone Number</label>
+              <input type="tel" id="phone" required placeholder="03001234567" class="border border-gray-300 rounded-lg p-2.5 w-full text-xs md:text-sm outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 mb-1">Select Academic Program</label>
+              <select id="course" required class="border border-gray-300 rounded-lg p-2.5 w-full text-xs md:text-sm outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50 font-medium">
+                <option value="Class 9th Computer / Science">Class 9th Computer / Science</option>
+                <option value="Class 10th Computer / Science">Class 10th Computer / Science</option>
+                <option value="Intermediate (ICS / FSc)">Intermediate (ICS / FSc)</option>
+                <option value="Computer Diploma Course (Monthly Rs. 2,500)">Computer Diploma Course (Monthly Rs. 2,500)</option>
+                <option value="3-Month Course + 1-Year Diploma (Rs. 15,000)">3-Month Course + 1-Year Diploma (Rs. 15,000)</option>
+              </select>
+            </div>
+            <button type="submit" id="submitBtn" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg text-xs md:text-sm transition shadow">
+              Submit & Generate Admission Slip
+            </button>
+          </form>
+
+          <!-- Printable Official Roll Number Slip Card -->
+          <div id="regSuccessCard" class="hidden mt-6 space-y-4">
+            <div id="printableSlip" class="p-5 md:p-6 rounded-2xl bg-white border-2 border-blue-900 shadow-md text-gray-900">
+              <div class="text-center border-b pb-3 mb-3">
+                <h3 class="text-base md:text-lg font-black uppercase text-blue-950">Aftab Nasir Computer Academy</h3>
+                <p class="text-[10px] text-gray-500">Kamir Campus | Contact: 0304-6588754</p>
+                <span class="inline-block mt-1 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded">ADMISSION CONFIRMATION SLIP</span>
+              </div>
+              <div class="text-xs space-y-2">
+                <p><strong>Student Name:</strong> <span id="slipName"></span></p>
+                <p><strong>Assigned Roll No:</strong> <span id="newRollDisplay" class="text-blue-900 font-extrabold text-sm"></span></p>
+                <p><strong>LMS Password (PIN):</strong> <span id="newPassDisplay" class="text-emerald-700 font-bold"></span></p>
+                <p><strong>Selected Course:</strong> <span id="slipCourse"></span></p>
+                <p><strong>Session:</strong> Academic Year 2026</p>
+              </div>
+              <div class="mt-4 pt-2 border-t text-center text-[10px] text-gray-400">
+                Please keep this slip safe for monthly test attendance and LMS login.
+              </div>
+            </div>
+            <button onclick="window.print()" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 rounded-lg text-xs flex items-center justify-center gap-2 shadow no-print">
+              <i class="fa-solid fa-print"></i> Print Admission Slip
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- QUESTION CUSTOMIZE/REPLACE MODAL -->
+  <div id="replaceModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-3.5 bg-blue-950 text-white flex justify-between items-center">
+        <div>
+          <h4 class="font-bold text-sm">Replace Question</h4>
+          <p class="text-[10px] text-blue-200">Tap any question below to replace it on the paper</p>
+        </div>
+        <button onclick="closeReplaceModal()" class="text-gray-300 hover:text-white text-lg font-bold">&times;</button>
+      </div>
+      <div id="replaceList" class="p-3.5 overflow-y-auto space-y-2 text-xs flex-grow"></div>
+      <div class="p-2.5 bg-gray-100 text-right border-t">
+        <button onclick="closeReplaceModal()" class="bg-gray-300 text-gray-800 px-3.5 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-400">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs border-t border-gray-800 no-print">
+    <div class="max-w-6xl mx-auto px-4 space-y-1.5">
+      <p class="font-bold text-white tracking-wide">Aftab Nasir Computer Academy</p>
+      <p>Kamir Campus Helpline: <a href="tel:+923046588754" class="text-yellow-400 font-semibold">+92 304 6588754</a></p>
+      <p class="text-gray-500">&copy; 2026 Aftab Nasir Computer Academy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT APPLICATION ENGINE -->
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGwmTO0jhTYN9-KrQi5JpsPlOHUSpurgm2PDsHCgyJE6OSLl1r040W1TaWB4Zd9D9R/exec";
+    const SCHEME_LONG_UNITS = [1, 3, 6, 9];
+
+    // Master 9 Units Database (Full In-Book Concepts + Definitions + Exercises)
+    const masterBookData = {
+      1: {
+        title: "Introduction to Computational Systems",
+        mcqs: [
+          { q: "The primary function of a system is:", a: "(a) To work independently", b: "(b) To achieve a common goal", c: "(c) To create new systems", d: "(d) To provide entertainment", ans: "b" },
+          { q: "One of the fundamental concepts of any system is:", a: "(a) Its size", b: "(b) Its objective", c: "(c) Its age", d: "(d) Its price", ans: "b" },
+          { q: "An example of a simple system is:", a: "(a) A human body", b: "(b) A computer network", c: "(c) A thermostat regulating temperature", d: "(d) The Internet", ans: "c" },
+          { q: "The basic components of a system are:", a: "(a) Users, hardware, software", b: "(b) Objectives, components, environment, communication", c: "(c) Inputs, outputs, processes", d: "(d) Sensors, actuators, controllers", ans: "b" },
+          { q: "Which describes the Von Neumann architecture's main characteristic?", a: "(a) Separate memory for data & code", b: "(b) Parallel execution", c: "(c) Single memory store for both program instructions & data", d: "(d) Multiple CPUs", ans: "c" },
+          { q: "ASCII stands for:", a: "(a) American Standard Code for Information Interchange", b: "(b) Advanced Standard Code", c: "(c) American Standard Communication", d: "(d) Advanced Communication", ans: "a" },
+          { q: "How many bits are used in standard ASCII encoding?", a: "(a) 7 bits", b: "(b) 8 bits", c: "(c) 16 bits", d: "(d) 32 bits", ans: "a" },
+          { q: "How many bytes are used to store a typical integer?", a: "(a) 1 byte", b: "(b) 2 bytes", c: "(c) 4 bytes", d: "(d) 8 bytes", ans: "c" },
+          { q: "Which software is used to enhance system performance and security?", a: "(a) Operating system", b: "(b) Utility software", c: "(c) Application software", d: "(d) Device drivers", ans: "b" },
+          { q: "Which register holds the memory address of the next instruction?", a: "(a) Instruction Register", b: "(b) Program Counter", c: "(c) ALU", d: "(d) Data Register", ans: "b" },
+          { q: "The bus that carries electrical control signals between components is:", a: "(a) Data Bus", b: "(b) Address Bus", c: "(c) Control Bus", d: "(d) Power Bus", ans: "c" },
+          { q: "Which text encoding format is backward compatible with standard ASCII?", a: "(a) UTF-8", b: "(b) UTF-16", c: "(c) UTF-32", d: "(d) ANSI", ans: "a" }
+        ],
+        shorts: [
+          { q: "Define a system.", a: "A system is an organized collection of interdependent parts that work together to perform a specific function or achieve a common goal." },
+          { q: "Define an Information System according to the textbook.", a: "An Information System is a combination of technology and people that collects, processes, stores, and shares data to help an organization make decisions and operate effectively." },
+          { q: "What is meant by the environment of a system?", a: "The environment of a system includes everything external to the system that interacts with it, providing inputs and receiving outputs." },
+          { q: "Enlist the main components of the Von Neumann architecture.", a: "1. Memory Unit, 2. Central Processing Unit (ALU & Control Unit), 3. Input Mechanisms, 4. Output Mechanisms." },
+          { q: "Enlist the four main steps in the Von Neumann instruction cycle.", a: "1. Fetching, 2. Decoding, 3. Executing, 4. Storing." },
+          { q: "What are the roles of the Program Counter (PC) and Instruction Register (IR)?", a: "The Program Counter (PC) stores the memory address of the next instruction. The Instruction Register (IR) holds the fetched instruction retrieved from memory." },
+          { q: "Define the three components of a System Bus.", a: "1. Data Bus: Transports data. 2. Address Bus: Maintains destination addresses. 3. Control Bus: Transports control electrical signals." },
+          { q: "What is a key advantage of the Von Neumann architecture?", a: "Single shared memory store for both program instructions and data, simplifying circuit design and versatility." },
+          { q: "What is the primary purpose of the ASCII encoding scheme?", a: "To reliably represent and exchange text information between digital devices by assigning numeric codes (0-127) to characters." },
+          { q: "Define Unicode and name its common encoding formats.", a: "Unicode maps all graphic characters across world languages. Formats include UTF-8, UTF-16, and UTF-32." },
+          { q: "Why is UTF-8 widely preferred over UTF-16 and UTF-32?", a: "UTF-8 uses variable byte length (1-4 bytes) and is backward compatible with ASCII, saving storage space." },
+          { q: "How does the number of bits affect the range of integer values?", a: "More bits increase the range (2^n). Signed integers range from -2^(n-1) to 2^(n-1)-1." },
+          { q: "Define system software and provide two examples.", a: "Software that manages hardware resources and provides a platform for applications (e.g., Windows OS, Device Drivers)." },
+          { q: "Differentiate between system software and application software.", a: "System software operates the system hardware; Application software helps users perform specific tasks (e.g., MS Word)." },
+          { q: "Differentiate between HDD and SSD storage.", a: "HDD uses spinning magnetic platters to read/write data, while SSD uses fast flash memory with no moving parts." },
+          { q: "Add binary numbers 1100(2) and 1011(2).", a: "1100 + 1011 = 10111 in base 2 (Decimal: 12 + 11 = 23)." },
+          { q: "Subtract 0011(2) from 1010(2) using 2's complement.", a: "2's complement of 0011 is 1101. 1010 + 1101 = 10111. Discard carry bit leaves 0111 (Decimal: 7)." }
+        ],
+        longs: [
+          { q: "Explain the Von Neumann Architecture of a computer with its core functional components and system buses.", a: "Elaborate Memory Unit, CPU (ALU and Control Unit), Input/Output devices, and System Bus structure." },
+          { q: "Explain the working of the Von Neumann Architecture (Instruction Cycle: Fetch, Decode, Execute, Store).", a: "Detail the four distinct phases, role of PC and IR registers, and data movement." },
+          { q: "Explain how characters are encoded using Unicode and differentiate between UTF-8, UTF-16, and UTF-32 with examples.", a: "Discuss variable vs fixed byte allocation, backward compatibility, and Urdu/English character examples." },
+          { q: "Describe in detail how whole numbers and signed integers are represented in computer memory.", a: "Explain bit capacities (1, 2, 4 bytes), sign bit, 1's complement, and 2's complement arithmetic." }
+        ]
+      },
+      2: {
+        title: "System Design and Troubleshooting",
+        mcqs: [
+          { q: "Which Boolean expression represents the OR operation?", a: "(a) A . B", b: "(b) A + B", c: "(c) A'", d: "(d) AB", ans: "b" },
+          { q: "What is the dual of the Boolean expression A . 0 = 0?", a: "(a) A + 1 = 1", b: "(b) A + 0 = A", c: "(c) A . 1 = A", d: "(d) A . 0 = 0", ans: "a" },
+          { q: "Which logic gate outputs true only if both inputs are true?", a: "(a) OR gate", b: "(b) AND gate", c: "(c) XOR gate", d: "(d) NOT gate", ans: "b" },
+          { q: "Which logic gate outputs true only when exactly one input is true?", a: "(a) AND gate", b: "(b) OR gate", c: "(c) XOR gate", d: "(d) NAND gate", ans: "c" },
+          { q: "The logic gate that is an inverse of the AND gate is:", a: "(a) NOR", b: "(b) NAND", c: "(c) XOR", d: "(d) NOT", ans: "b" },
+          { q: "What is the decimal equivalent of binary 1101?", a: "(a) 11", b: "(b) 12", c: "(c) 13", d: "(d) 14", ans: "c" },
+          { q: "What is the first step in the systematic process of troubleshooting?", a: "(a) Establish Cause", b: "(b) Implement Solution", c: "(c) Identify Problem", d: "(d) Document Findings", ans: "c" },
+          { q: "Which step in troubleshooting involves checking if the suspected cause is actually responsible?", a: "(a) Establish Theory", b: "(b) Test Theory", c: "(c) Implement Solution", d: "(d) Document", ans: "b" },
+          { q: "Which diagnostic tool is used to monitor hard drive health via SMART checks?", a: "(a) MemTest86", b: "(b) CrystalDiskInfo", c: "(c) BIOS", d: "(d) Task Manager", ans: "b" },
+          { q: "According to De Morgan's Law, NOT(A + B) equals:", a: "(a) NOT(A) + NOT(B)", b: "(b) NOT(A) . NOT(B)", c: "(c) A . B", d: "(d) A + B", ans: "b" }
+        ],
+        shorts: [
+          { q: "Define Analog and Digital signals.", a: "Analog signals are continuous and time-varying with infinite values. Digital signals are discrete with only two binary states (0 and 1)." },
+          { q: "What is the purpose of ADC and DAC?", a: "ADC converts continuous analog signals to binary values for computers; DAC converts digital signals back to analog for human perception." },
+          { q: "Why are digital signals preferred over analog signals for data transmission?", a: "Digital signals are less affected by electrical noise and signal degradation over long distances." },
+          { q: "Define a Boolean function.", a: "An algebraic expression describing the relationship between binary variables and logical operators producing a binary output." },
+          { q: "What is the significance of a truth table in digital logic?", a: "A truth table shows the resulting logical output for every possible binary input combination." },
+          { q: "Describe the function of a NOT gate with its truth table.", a: "A NOT gate inverts its single input (Input 0 yields 1; Input 1 yields 0)." },
+          { q: "Describe the XOR gate and write its Boolean expression.", a: "The XOR gate outputs true only when exactly one input is true. Expression: P = A.B' + A'.B." },
+          { q: "State De Morgan's Theorems.", a: "1. (A + B)' = A' . B'  and  2. (A . B)' = A' + B'." },
+          { q: "What is the Absorption Law in Boolean algebra?", a: "A + (A . B) = A and A . (A + B) = A." },
+          { q: "What is meant by system troubleshooting?", a: "A systematic process of identifying, diagnosing, and resolving hardware or software malfunctions." },
+          { q: "Enlist the 7 steps of the systematic troubleshooting process.", a: "1. Identify Problem, 2. Establish Theory of Probable Cause, 3. Test Theory, 4. Establish Plan of Action, 5. Implement Solution, 6. Verify Full Functionality, 7. Document Findings." },
+          { q: "Why is documenting findings important in troubleshooting?", a: "It provides a historical reference log that helps resolve similar technical issues faster in the future." },
+          { q: "What are common symptoms of RAM failure?", a: "Frequent system freezes, Blue Screens of Death (BSOD), and random reboot loops." },
+          { q: "How can hard drive health be monitored?", a: "Using SMART diagnostic status checks or specialized utilities like CrystalDiskInfo." }
+        ],
+        longs: []
+      },
+      3: {
+        title: "Introduction to Computer Networks",
+        mcqs: [
+          { q: "The primary objective of computer networks is:", a: "(a) Increase computing power", b: "(b) Resource sharing and data communication", c: "(c) Enhance graphics", d: "(d) Software design", ans: "b" },
+          { q: "Which device directs data packets between different networks?", a: "(a) Switch", b: "(b) Hub", c: "(c) Router", d: "(d) Modem", ans: "c" },
+          { q: "Which networking device uses MAC addresses to forward data packets inside a LAN?", a: "(a) Hub", b: "(b) Switch", c: "(c) Router", d: "(d) Gateway", ans: "b" },
+          { q: "Which layer of the OSI model handles error detection and node-to-node transfer?", a: "(a) Physical", b: "(b) Data Link Layer", c: "(c) Network", d: "(d) Transport", ans: "b" },
+          { q: "The function of Domain Name System (DNS) is to:", a: "(a) Assign dynamic IPs", b: "(b) Translate domain names to IP addresses", c: "(c) Secure communication", d: "(d) Monitor traffic", ans: "b" },
+          { q: "Which protocol automatically assigns IP addresses to devices on a network?", a: "(a) DNS", b: "(b) DHCP", c: "(c) HTTP", d: "(d) FTP", ans: "b" },
+          { q: "Which transmission mode allows bidirectional communication simultaneously?", a: "(a) Simplex", b: "(b) Half-Duplex", c: "(c) Full-Duplex", d: "(d) Multiplex", ans: "c" },
+          { q: "How many total unique addresses does IPv4 support?", a: "(a) 2^16", b: "(b) 2^32 (approx 4.3 billion)", c: "(c) 2^64", d: "(d) 2^128", ans: "b" },
+          { q: "How many bits are used in an IPv6 address?", a: "(a) 32 bits", b: "(b) 64 bits", c: "(c) 128 bits", d: "(d) 256 bits", ans: "c" },
+          { q: "Which network topology connects all devices to a central hub or switch?", a: "(a) Ring", b: "(b) Mesh", c: "(c) Bus", d: "(d) Star", ans: "d" }
+        ],
+        shorts: [
+          { q: "Define data communication.", a: "The electronic exchange of data between a sender and receiver through a transmission medium." },
+          { q: "Enlist the five key components of data communication.", a: "1. Sender, 2. Receiver, 3. Message, 4. Protocol, 5. Transmission Medium." },
+          { q: "What is a MAC address?", a: "A unique, permanent physical hardware identifier assigned to every network interface card." },
+          { q: "How does a network switch work?", a: "It reads the destination MAC address of incoming data packets and forwards them exclusively to the target port." },
+          { q: "What is the role of a router in a computer network?", a: "It interconnects different networks and forwards data packets along the best route using IP addresses and routing tables." },
+          { q: "What is an Access Point (AP)?", a: "A networking device that connects wireless devices (smartphones, laptops) to a wired network." },
+          { q: "Differentiate between Simplex, Half-Duplex, and Full-Duplex communication.", a: "Simplex is one-way only; Half-Duplex is two-way but one at a time; Full-Duplex is two-way simultaneously." },
+          { q: "Differentiate between TCP and UDP protocols.", a: "TCP is connection-oriented and guarantees reliable packet delivery; UDP is connectionless, faster, but does not guarantee delivery." },
+          { q: "What is the difference between IPv4 and IPv6?", a: "IPv4 uses 32 bits (approx 4.3 billion addresses); IPv6 uses 128 bits for practically limitless addresses." },
+          { q: "Differentiate between LAN, MAN, and WAN.", a: "LAN covers a single building; MAN spans an entire city (up to 50 km); WAN covers vast geographical regions or countries." },
+          { q: "What is the role of a firewall in network security?", a: "A firewall monitors and filters incoming and outgoing traffic based on predetermined security rules." }
+        ],
+        longs: [
+          { q: "Explain the 7-Layer OSI Networking Model with functions of each layer.", a: "Describe Physical, Data Link, Network, Transport, Session, Presentation, and Application layers." },
+          { q: "What is network topology? Explain Star, Bus, Ring, and Mesh topologies with diagrams, pros, and cons.", a: "Discuss physical layouts, cable dependency, single-point failure risks, and redundancy." },
+          { q: "Explain the TCP/IP protocol suite and the functions of DNS, DHCP, and IP addressing.", a: "Detailed breakdown of IP routing, domain translation, and dynamic address allocation." }
+        ]
+      },
+      4: {
+        title: "Computational Thinking",
+        mcqs: [
+          { q: "Which best defines computational thinking?", a: "(a) Pure math only", b: "(b) Problem-solving using systematic, algorithmic and logical thinking", c: "(c) Coding exclusively", d: "(d) Random trials", ans: "b" },
+          { q: "Why is problem decomposition important?", a: "(a) Simplifies problems by breaking them into manageable parts", b: "(b) Adds more details", c: "(c) Eliminates solutions", d: "(d) Simple tasks only", ans: "a" },
+          { q: "Which term refers to ignoring unnecessary details to focus on the main idea?", a: "(a) Decomposition", b: "(b) Pattern recognition", c: "(c) Abstraction", d: "(d) Algorithm", ans: "c" },
+          { q: "Which flowchart symbol represents a decision condition?", a: "(a) Rectangle", b: "(b) Parallelogram", c: "(c) Diamond", d: "(d) Oval", ans: "c" },
+          { q: "The parallelogram symbol in a flowchart represents:", a: "(a) Start/Stop", b: "(b) Process", c: "(c) Input / Output", d: "(d) Decision", ans: "c" },
+          { q: "Pseudocode is:", a: "(a) A flowchart", b: "(b) High-level algorithm description in plain structured language", c: "(c) Compiled language", d: "(d) Bug debugger", ans: "b" },
+          { q: "Which type of error occurs when an algorithm performs an illegal operation like division by zero?", a: "(a) Syntax Error", b: "(b) Runtime Error", c: "(c) Logical Error", d: "(d) Semantic Error", ans: "b" },
+          { q: "Errors that allow an algorithm to run but produce incorrect outputs are:", a: "(a) Logical Errors", b: "(b) Syntax Errors", c: "(c) Compiler Errors", d: "(d) System Bugs", ans: "a" }
+        ],
+        shorts: [
+          { q: "Define computational thinking and enlist its four core pillars.", a: "A problem-solving approach. Pillars: 1. Decomposition, 2. Pattern Recognition, 3. Abstraction, 4. Algorithms." },
+          { q: "Define decomposition with a real-life example.", a: "Breaking a complex problem into smaller tasks (e.g., decomposing website creation into layout, content, and coding)." },
+          { q: "What is pattern recognition in computational thinking?", a: "Identifying recurring trends, similarities, or sequences within data to simplify solutions." },
+          { q: "Describe abstraction in problem solving.", a: "Hiding unnecessary implementation details and focusing strictly on the essential high-level concepts." },
+          { q: "What is an algorithm?", a: "A step-by-step sequence of unambiguous instructions designed to solve a problem or accomplish a task." },
+          { q: "Differentiate between a flowchart and pseudocode.", a: "Flowcharts use visual symbols and connecting flowlines; Pseudocode uses plain, human-readable structured statements." },
+          { q: "Draw or describe four basic flowchart symbols.", a: "Oval (Start/Stop), Rectangle (Process/Calculation), Parallelogram (Input/Output), Diamond (Decision/Branching)." },
+          { q: "What is a dry run of an algorithm?", a: "Manually tracing through algorithm steps with test values on paper to verify correctness before coding." },
+          { q: "What is LARP and why is it used?", a: "Logic of Algorithms for Resolution of Problems: a teaching software for writing, testing, and visualizing algorithms." },
+          { q: "Differentiate between Syntax Errors, Runtime Errors, and Logical Errors.", a: "Syntax: incorrect grammar/commands; Runtime: illegal operation during execution (e.g. divide by zero); Logical: flawed logic producing incorrect outputs." }
+        ],
+        longs: []
+      },
+      5: {
+        title: "Web Development with HTML, CSS, and JavaScript",
+        mcqs: [
+          { q: "Which of the following tag is not a correct HTML tag?", a: "(a) <div>", b: "(b) <span>", c: "(c) <head>", d: "(d) <footer>", ans: "d" },
+          { q: "What does CSS stand for?", a: "(a) Cascading Style Sheets", b: "(b) Computer Style Sheets", c: "(c) Creative Style Sheets", d: "(d) Colorful Style Sheets", ans: "a" },
+          { q: "Which tag is used to create a hyperlink in HTML?", a: "(a) <link>", b: "(b) <a>", c: "(c) <href>", d: "(d) <nav>", ans: "b" },
+          { q: "Which HTML attribute defines inline styles?", a: "(a) class", b: "(b) style", c: "(c) font", d: "(d) styles", ans: "b" },
+          { q: "In HTML, which markup is used for comments?", a: "(a) /* */", b: "(b) /--/", c: "(c) <– –", d: "(d) <!-- -->", ans: "d" },
+          { q: "Which tag represents a self-closing (singular) tag?", a: "(a) <p>", b: "(b) <img>", c: "(c) <h1>", d: "(d) <div>", ans: "b" },
+          { q: "JavaScript is primarily executed:", a: "(a) On the database", b: "(b) In the user's web browser", c: "(c) Inside the BIOS", d: "(d) On DNS servers", ans: "b" },
+          { q: "Which HTML tag is used to define a row inside a table?", a: "(a) <td>", b: "(b) <th>", c: "(c) <tr>", d: "(d) <table-row>", ans: "c" }
+        ],
+        shorts: [
+          { q: "Define web development.", a: "The process of designing, building, and maintaining websites and web applications using languages like HTML, CSS, and JS." },
+          { q: "Differentiate between Front-end, Back-end, and Full-Stack development.", a: "Front-end: client UI; Back-end: servers and databases; Full-Stack: developing both client UI and server logic." },
+          { q: "What is the purpose of the <!DOCTYPE html> declaration?", a: "It informs the web browser that the document is constructed in HTML5 standards." },
+          { q: "Differentiate between paired tags and singular tags in HTML.", a: "Paired tags require an opening and closing tag (e.g., <p>...</p>); Singular tags are self-closing (e.g., <img>, <br>)." },
+          { q: "What are the three ways to integrate CSS into an HTML document?", a: "1. Inline (style attribute), 2. Internal (<style> in head), 3. External (<link> to external .css file)." },
+          { q: "Differentiate between ordered lists (<ol>) and unordered lists (<ul>).", a: "<ol> creates sequential numbered lists; <ul> creates bulleted lists using <li> elements." },
+          { q: "What is the role of the <div> tag in web design?", a: "It acts as a generic block-level container to group and layout HTML elements." },
+          { q: "How do you create comments in HTML and CSS?", a: "HTML uses <!-- comment -->; CSS uses /* comment */." },
+          { q: "What is JavaScript and what is its role in web development?", a: "A scripting language that adds dynamic interactivity, animations, form validation, and event handling to web pages." }
+        ],
+        longs: []
+      },
+      6: {
+        title: "Data Science and Data Gathering",
+        mcqs: [
+          { q: "What is data?", a: "(a) Processed info", b: "(b) Raw facts gathered about things", c: "(c) Numbers only", d: "(d) Observed events", ans: "b" },
+          { q: "Which of the following is an example of qualitative data?", a: "(a) Temperature in Celsius", b: "(b) Number of students", c: "(c) Favourite ice cream flavours", d: "(d) Test scores", ans: "c" },
+          { q: "What is the primary purpose of data visualization?", a: "(a) Random numbers", b: "(b) Text format", c: "(c) Make data easy to understand through pictures", d: "(d) Hide complexity", ans: "c" },
+          { q: "Which tool is specifically designed for creating detailed interactive visualizations?", a: "(a) Excel", b: "(b) Sheets", c: "(c) Tableau", d: "(d) PowerPoint", ans: "c" },
+          { q: "What is the first step in data science process?", a: "(a) Data cleaning", b: "(b) Data analysis", c: "(c) Data collection / Problem understanding", d: "(d) Visualizing", ans: "c" },
+          { q: "Data formatted into rows and columns in spreadsheets is called:", a: "(a) Unstructured data", b: "(b) Structured data", c: "(c) Raw text", d: "(d) Qualitative", ans: "b" },
+          { q: "Extreme values that do not fit the normal distribution of a dataset are called:", a: "(a) Biases", b: "(b) Outliers", c: "(c) Attributes", d: "(d) Duplicates", ans: "b" }
+        ],
+        shorts: [
+          { q: "Define data and information.", a: "Data is raw, unorganized facts and figures. Information is processed, structured data that carries meaning and context." },
+          { q: "Differentiate between qualitative and quantitative data.", a: "Qualitative is descriptive/categorical (labels, words); Quantitative is numerical and measurable (counts, dimensions)." },
+          { q: "Differentiate between structured and unstructured data.", a: "Structured fits into rigid tables and databases; Unstructured includes emails, audio, videos, and social media posts." },
+          { q: "Name four primary methods of data collection.", a: "1. Surveys, 2. Questionnaires, 3. One-on-one Interviews, 4. Direct Observation." },
+          { q: "What is data pre-processing and why is it important?", a: "Cleaning and organizing raw data to fix errors, manage outliers, and handle missing fields before analysis." },
+          { q: "What are outliers and how are they handled?", a: "Outliers are extreme anomalies in data. Analysts investigate whether to keep, adjust, or remove them." },
+          { q: "Why is data visualization essential?", a: "It translates numerical datasets into visual charts (bar, line, pie) to uncover patterns and trends." },
+          { q: "What is the role of SQL in data science?", a: "Structured Query Language is used to store, manage, manipulate, and extract data from relational databases." },
+          { q: "Define data backups and their benefits.", a: "Duplicating critical files onto separate physical or cloud storage to protect against data corruption or loss." }
+        ],
+        longs: [
+          { q: "Explain the differences between qualitative and quantitative data with comprehensive examples.", a: "Detailed breakdown of measurable vs descriptive characteristics, counting, and arithmetic operations." },
+          { q: "Explain the complete data pre-processing lifecycle: quality evaluation, bias identification, validation, and cleaning.", a: "Elaborate completeness checks, accuracy validation, handling missing records, and outlier treatments." },
+          { q: "Discuss the interdisciplinary nature of data science, its core tools (Excel, Python, R, SQL), and practical applications.", a: "Explain how computer science, mathematics, and business domain knowledge converge." }
+        ]
+      },
+      7: {
+        title: "Emerging Technologies in Computer Science",
+        mcqs: [
+          { q: "Which of the following is not a subfield of AI?", a: "(a) Machine Learning", b: "(b) NLP", c: "(c) Computer Vision", d: "(d) DBMS", ans: "d" },
+          { q: "Which of these is a security concern in IoT deployments?", a: "(a) Device vulnerability", b: "(b) Data privacy", c: "(c) Lack of standards", d: "(d) All of the above", ans: "d" },
+          { q: "What is the primary purpose of AI techniques in machine learning?", a: "(a) Improve accuracy", b: "(b) Enhance interpretability", c: "(c) Reduce computational complexity", d: "(d) All of the above", ans: "d" },
+          { q: "What is the key difference between explainable (whitebox) and unexplainable (blackbox) AI?", a: "(a) Model complexity", b: "(b) Ability to understand decision-making process", c: "(c) Performance", d: "(d) Training data", ans: "b" },
+          { q: "The physical devices in IoT that convert energy into mechanical motion are:", a: "(a) Sensors", b: "(b) Actuators", c: "(c) Microcontrollers", d: "(d) Routers", ans: "b" },
+          { q: "Who coined the term 'Internet of Things' in 1999?", a: "(a) Tim Berners-Lee", b: "(b) Kevin Ashton", c: "(c) John von Neumann", d: "(d) Alan Turing", ans: "b" }
+        ],
+        shorts: [
+          { q: "Define Artificial Intelligence (AI).", a: "The simulation of human intelligence in computer systems enabling them to think, reason, and learn." },
+          { q: "What is Machine Learning?", a: "A branch of AI where systems automatically learn and improve from experience without being explicitly programmed." },
+          { q: "What is Deep Learning?", a: "A specialized subfield of machine learning using multi-layered artificial neural networks inspired by the human brain." },
+          { q: "Define Natural Language Processing (NLP) with an example.", a: "AI technology that enables computers to read, understand, and speak human languages (e.g., Siri, Alexa)." },
+          { q: "What is Computer Vision?", a: "An AI field that trains computers to interpret and understand the visual world from digital images and videos." },
+          { q: "Differentiate between Whitebox and Blackbox AI algorithms.", a: "Whitebox algorithms have transparent, explainable decision logic; Blackbox algorithms have complex, opaque hidden internal workings." },
+          { q: "Define the Internet of Things (IoT).", a: "A network of physical devices equipped with sensors, software, and connectivity to collect and exchange data." },
+          { q: "What are sensors and actuators in an IoT system?", a: "Sensors detect and measure physical properties (temperature, light); Actuators convert control signals into physical movement." },
+          { q: "Name two real-world applications of IoT in healthcare.", a: "1. Remote patient monitoring of vitals, 2. Smart medication tracking dispensers." }
+        ],
+        longs: []
+      },
+      8: {
+        title: "Ethical, Social, and Legal Concerns in Computer Usage",
+        mcqs: [
+          { q: "Why is it important to use strong, unique passwords?", a: "(a) Easy to hack", b: "(b) Help others guess", c: "(c) Make it harder for unauthorized access", d: "(d) Avoid updates", ans: "c" },
+          { q: "What does Two-Factor Authentication (2FA) do?", a: "(a) Simplifies password", b: "(b) Adds extra verification step beyond password", c: "(c) Removes passwords", d: "(d) Slows internet", ans: "b" },
+          { q: "Why avoid public Wi-Fi for sensitive transactions?", a: "(a) Too fast", b: "(b) Public Wi-Fi networks are often unencrypted and insecure", c: "(c) Too costly", d: "(d) Always blocked", ans: "b" },
+          { q: "What should you do if an unknown email asks for personal info?", a: "(a) Reply details", b: "(b) Forward to friends", c: "(c) Ignore or delete immediately", d: "(d) Click links", ans: "c" },
+          { q: "What legal protection gives creators exclusive rights over literature, music, and software?", a: "(a) Trademark", b: "(b) Copyright", c: "(c) Patent", d: "(d) License", ans: "b" },
+          { q: "The illegal copying, distribution, or unauthorized use of commercial software is:", a: "(a) Software Piracy", b: "(b) Plagiarism", c: "(c) Phishing", d: "(d) Cyberstalking", ans: "a" }
+        ],
+        shorts: [
+          { q: "What does responsible computer usage mean?", a: "Using digital technologies safely, ethically, and respectfully without infringing upon others or compromising security." },
+          { q: "What is Two-Factor Authentication (2FA) and why is it useful?", a: "A security method requiring two separate verification factors, preventing unauthorized access even if passwords leak." },
+          { q: "What is phishing and how can it be avoided?", a: "Fraudulent emails or links masquerading as authentic entities to steal credentials. Avoid clicking unknown links." },
+          { q: "Why should sensitive transactions be avoided on public Wi-Fi networks?", a: "Public Wi-Fi networks often lack encryption, making data vulnerable to interception by hackers." },
+          { q: "Define Copyright, Trademark, and Patent.", a: "Copyright: protects creative literary/artistic/software works; Trademark: protects commercial brand identifiers/logos; Patent: protects new inventions." },
+          { q: "What is software piracy and why is it harmful?", a: "The unauthorized duplication and distribution of software, depriving software creators of rightful revenue." },
+          { q: "What is cyberbullying and how should a student respond?", a: "Using online platforms to harass or intimidate others. Students should document evidence, block perpetrators, and report to authorities." }
+        ],
+        longs: []
+      },
+      9: {
+        title: "Entrepreneurship in Digital Age",
+        mcqs: [
+          { q: "What is entrepreneurship?", a: "(a) Starting a new business or venture", b: "(b) Buying stocks", c: "(c) Working for corporate", d: "(d) Ad campaigns", ans: "a" },
+          { q: "What is a key characteristic of entrepreneurs?", a: "(a) Avoiding risk", b: "(b) Seeking comfort", c: "(c) Innovation and risk-taking", d: "(d) Fixed methods", ans: "c" },
+          { q: "The first step in the design thinking process is:", a: "(a) Prototyping", b: "(b) Testing", c: "(c) Empathizing", d: "(d) Defining", ans: "c" },
+          { q: "The primary purpose of creating a business plan is:", a: "(a) Attract friends", b: "(b) Outline operational roadmaps and growth strategies", c: "(c) Only analyze trends", d: "(d) Avoid planning", ans: "b" },
+          { q: "Which Sustainable Development Goal (SDG) focuses on Affordable and Clean Energy?", a: "(a) SDG 5", b: "(b) SDG 7", c: "(c) SDG 12", d: "(d) SDG 17", ans: "b" }
+        ],
+        shorts: [
+          { q: "What is the meaning and origin of the word 'entrepreneur'?", a: "Derived from French 'entreprendre', meaning 'to undertake' the initiative and financial risk of launching a business." },
+          { q: "Enlist three key characteristics of successful entrepreneurs.", a: "1. Innovation, 2. Willingness to take calculated risks, 3. Strong creative problem-solving ability." },
+          { q: "Why is entrepreneurship crucial for economic growth?", a: "It drives innovation, introduces market competition, and generates new employment opportunities." },
+          { q: "Define digital entrepreneurship.", a: "Leveraging internet platforms, digital technologies, and cloud infrastructure to create, launch, and operate businesses." },
+          { q: "What is an e-commerce platform?", a: "A digital architecture that enables merchants and customers to buy and sell goods online (e.g., Shopify)." },
+          { q: "Enlist the five stages of the Design Thinking process.", a: "1. Empathize, 2. Define, 3. Ideate, 4. Prototype, 5. Test." },
+          { q: "What is a prototype and what is iteration?", a: "A prototype is an early, simplified model of a product; Iteration is refining the product through successive feedback cycles." },
+          { q: "What are the essential components of a business plan?", a: "Executive summary, market analysis, organization structure, revenue model, and digital marketing roadmap." }
+        ],
+        longs: [
+          { q: "Explain the Design Thinking process for creating innovative business ideas. Describe each stage in detail.", a: "Detail Empathize, Define, Ideate, Prototyping, and User Testing phases with examples." },
+          { q: "Explain why entrepreneurship is vital for economic progress and discuss the role of digital marketing strategies.", a: "Discuss SEO, social media marketing, content marketing, email campaigns, and economic value." },
+          { q: "Discuss ethical and sustainable entrepreneurship and how businesses align with Sustainable Development Goals (SDGs).", a: "Explain business integrity, environmental impact reduction, and sustainable commercial growth." }
+        ]
+      }
+    };
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenuDropdown');
+      const icon = document.getElementById('mobileMenuIcon');
+      menu.classList.toggle('hidden');
+      if (menu.classList.contains('hidden')) {
+        icon.className = "fa-solid fa-bars";
+      } else {
+        icon.className = "fa-solid fa-xmark";
+      }
+    }
+
+    // Navigation View Controller (Fixed and 100% Reliable)
+    function navigateTo(routeId) {
+      document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById(`page-${routeId}`);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Reset form if navigating to admissions
+      if (routeId === 'admissions') {
+        const form = document.getElementById('admissionForm');
+        const successCard = document.getElementById('regSuccessCard');
+        if (form) form.classList.remove('hidden');
+        if (successCard) successCard.classList.add('hidden');
+      }
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-target') === routeId) {
+          btn.classList.add('text-yellow-400', 'underline', 'font-bold');
+        } else {
+          btn.classList.remove('text-yellow-400', 'underline', 'font-bold');
+        }
+      });
+    }
+
+    function openClass(classId) {
+      if (classId === '9th') {
+        navigateTo('class-9th');
+        switch9thTab('testmaker');
+      }
+    }
+
+    function switch9thTab(tabId) {
+      document.querySelectorAll('.sub-tab-content').forEach(t => t.classList.add('hidden'));
+      const currentTab = document.getElementById(`subtab-${tabId}`);
+      if (currentTab) currentTab.classList.remove('hidden');
+
+      document.querySelectorAll('.sub-tab-btn').forEach(b => {
+        b.classList.remove('border-emerald-600', 'text-emerald-700');
+        b.classList.add('border-transparent', 'text-gray-500');
+      });
+
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-transparent', 'text-gray-500');
+        activeBtn.classList.add('border-emerald-600', 'text-emerald-700');
+      }
+    }
+
+    // Classic Fee Estimator Logic
+    function calculateFeeEstimate() {
+      const prog = document.getElementById('calcProgram').value;
+      const subBox = document.getElementById('calcSubjectBox');
+      const subs = parseInt(document.getElementById('calcSubjects').value) || 1;
+      const totalEl = document.getElementById('calcTotal');
+
+      if (prog === 'matric') {
+        subBox.style.display = 'block';
+        totalEl.innerText = `Rs. ${subs * 300}`;
+      } else if (prog === 'inter') {
+        subBox.style.display = 'block';
+        totalEl.innerText = `Rs. ${subs * 500}`;
+      } else {
+        subBox.style.display = 'none';
+        totalEl.innerText = `Rs. 2,500`;
+      }
+    }
+
+    // Student LMS Login (Dual Fallback Mode: Server + Instant Demo)
+    function checkStudentLogin() {
+      const roll = document.getElementById('lmsRollInput').value.trim();
+      const pass = document.getElementById('lmsPassInput').value.trim();
+      const btn = document.getElementById('lmsBtn');
+      const err = document.getElementById('lmsError');
+
+      if (!roll || !pass) {
+        err.classList.remove('hidden');
+        err.innerText = "Please enter Roll Number and PIN!";
+        return;
+      }
+
+      btn.innerText = "Verifying...";
+      err.classList.add('hidden');
+
+      // Local Instant Verification Fallback
+      function runLocalLogin() {
+        if (roll.toUpperCase() === 'ASA-101' && pass === '1234') {
+          showDashboard({
+            name: "Muhammad Hamza (Demo Student)",
+            roll: "ASA-101",
+            course: "Class 9th Computer Science & IT",
+            recentMarks: "Unit 1 Assessment: 19/20 (Grade: A+)",
+            lectureLink: "#"
+          });
+          return true;
+        }
+        return false;
+      }
+
+      function showDashboard(data) {
+        btn.innerText = "Sign In to Portal";
+        document.getElementById('lmsLoginBox').classList.add('hidden');
+        document.getElementById('lmsDashboard').classList.remove('hidden');
+        document.getElementById('dashName').innerText = data.name;
+        document.getElementById('dashClass').innerText = `Roll No: ${data.roll} | ${data.course}`;
+        document.getElementById('dashMarks').innerText = data.recentMarks || "Admission Record Verified - Active Enrolled";
+        document.getElementById('dashLink').href = data.lectureLink || "#";
+      }
+
+      // First try Google Sheet Server
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000); // 4 sec timeout
+
+      fetch(`${SCRIPT_URL}?action=login&roll=${encodeURIComponent(roll)}&pass=${encodeURIComponent(pass)}`, { signal: controller.signal })
+        .then(res => res.json())
+        .then(data => {
+          clearTimeout(timeoutId);
+          if (data.found) {
+            showDashboard(data);
+          } else {
+            if (!runLocalLogin()) {
+              btn.innerText = "Sign In to Portal";
+              err.classList.remove('hidden');
+              err.innerText = "Invalid Roll Number or Password!";
+            }
+          }
+        })
+        .catch(() => {
+          clearTimeout(timeoutId);
+          if (!runLocalLogin()) {
+            btn.innerText = "Sign In to Portal";
+            err.classList.remove('hidden');
+            err.innerText = "Server busy. Use Demo Roll: ASA-101 / PIN: 1234";
+          }
+        });
+    }
+
+    function logoutStudent() {
+      document.getElementById('lmsDashboard').classList.add('hidden');
+      document.getElementById('lmsLoginBox').classList.remove('hidden');
+      document.getElementById('lmsBtn').innerText = "Sign In to Portal";
+    }
+
+    // Admission Form Registration
+    document.getElementById('admissionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = "Processing Admission...";
+
+      const nameVal = document.getElementById('name').value;
+      const phoneVal = document.getElementById('phone').value;
+      const courseVal = document.getElementById('course').value;
+
+      const randomRoll = "ASA-" + Math.floor(100 + Math.random() * 900);
+      const randomPass = Math.floor(1000 + Math.random() * 9000);
+
+      function showSlip(roll, pass) {
+        document.getElementById('admissionForm').reset();
+        document.getElementById('admissionForm').classList.add('hidden');
+        document.getElementById('regSuccessCard').classList.remove('hidden');
+        document.getElementById('slipName').innerText = nameVal;
+        document.getElementById('slipCourse').innerText = courseVal;
+        document.getElementById('newRollDisplay').innerText = roll;
+        document.getElementById('newPassDisplay').innerText = pass;
+        submitBtn.innerText = "Submit & Generate Admission Slip";
+      }
+
+      fetch(`${SCRIPT_URL}?action=register&name=${encodeURIComponent(nameVal)}&phone=${encodeURIComponent(phoneVal)}&course=${encodeURIComponent(courseVal)}&message=OnlineAdmission`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.roll) {
+            showSlip(data.roll, data.pass);
+          } else {
+            showSlip(randomRoll, randomPass);
+          }
+        })
+        .catch(() => {
+          showSlip(randomRoll, randomPass);
+        });
+    });
+
+    // Test Generation & Replacement Engine
+    let currentPaperState = {
+      mcqs: [],
+      shorts: [],
+      longs: [],
+      scopeUnits: []
+    };
+
+    function getRandom(arr, n) {
+      return [...arr].sort(() => 0.5 - Math.random()).slice(0, n);
+    }
+
+    function generateTestPaper() {
+      const range = document.getElementById('tmRange').value;
+      const marksType = document.getElementById('tmMarks').value;
+      const paperPlaceholder = document.getElementById('paperPlaceholder');
+      const paperWrapper = document.getElementById('paperWrapper');
+      const timeDisplay = document.getElementById('paperTimeDisplay');
+      const marksDisplay = document.getElementById('paperMarksDisplay');
+
+      paperPlaceholder.classList.add('hidden');
+      paperWrapper.classList.remove('hidden');
+
+      marksDisplay.innerText = `Total Marks: ${marksType}`;
+
+      let units = [];
+      if (range === 'all') units = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      else if (range === 'half1') units = [1, 2, 3, 4];
+      else if (range === 'half2') units = [5, 6, 7, 8, 9];
+      else units = [parseInt(range.replace('u', ''))];
+
+      currentPaperState.scopeUnits = units;
+      const allowedLongUnits = units.filter(u => SCHEME_LONG_UNITS.includes(u));
+      const hasLongQuestions = allowedLongUnits.length > 0;
+
+      // 1. FULL BOOK BOARD PATTERN (50 MARKS EXACT)
+      if (marksType === "50" && range === "all") {
+        timeDisplay.innerText = "Time: 2 Hours (15 Mins Objective + 1:45 Hours Subjective)";
+
+        currentPaperState.mcqs = [
+          ...getRandom(masterBookData[1].mcqs, 1),
+          ...getRandom(masterBookData[2].mcqs, 2),
+          ...getRandom(masterBookData[3].mcqs, 1),
+          ...getRandom(masterBookData[4].mcqs, 1),
+          ...getRandom(masterBookData[5].mcqs, 1),
+          ...getRandom(masterBookData[6].mcqs, 1),
+          ...getRandom(masterBookData[7].mcqs, 1),
+          ...getRandom(masterBookData[8].mcqs, 1),
+          ...getRandom(masterBookData[9].mcqs, 1)
+        ];
+
+        currentPaperState.shorts = [
+          ...getRandom(masterBookData[1].shorts, 1),
+          ...getRandom(masterBookData[2].shorts, 2),
+          ...getRandom(masterBookData[4].shorts, 3),
+          ...getRandom(masterBookData[3].shorts, 1),
+          ...getRandom(masterBookData[5].shorts, 2),
+          ...getRandom(masterBookData[7].shorts, 3),
+          ...getRandom(masterBookData[6].shorts, 2),
+          ...getRandom(masterBookData[8].shorts, 3),
+          ...getRandom(masterBookData[9].shorts, 1)
+        ];
+
+        currentPaperState.longs = [
+          getRandom(masterBookData[1].longs, 1)[0],
+          getRandom(masterBookData[3].longs, 1)[0],
+          getRandom(masterBookData[6].longs, 1)[0]
+        ];
+
+        renderCurrentPaper(true);
+        return;
+      }
+
+      // 2. CHAPTER-WISE ADAPTIVE TEST
+      let poolMCQs = [], poolShorts = [], poolLongs = [];
+      units.forEach(u => {
+        poolMCQs.push(...masterBookData[u].mcqs);
+        poolShorts.push(...masterBookData[u].shorts);
+        if (SCHEME_LONG_UNITS.includes(u)) {
+          poolLongs.push(...masterBookData[u].longs);
+        }
+      });
+
+      let mcqCount = 4;
+      let shortCount = 6;
+      let shortAttempt = 4;
+      let longCount = 0;
+
+      if (marksType === "20") {
+        timeDisplay.innerText = "Time: 40 Minutes";
+        mcqCount = 4;
+        if (hasLongQuestions && poolLongs.length > 0) {
+          longCount = 1;
+          shortAttempt = 4;
+          shortCount = 6;
+        } else {
+          longCount = 0;
+          shortAttempt = 8;
+          shortCount = 10;
+        }
+      } else if (marksType === "30") {
+        timeDisplay.innerText = "Time: 1 Hour";
+        mcqCount = 6;
+        if (hasLongQuestions && poolLongs.length > 0) {
+          longCount = 1;
+          shortAttempt = 8;
+          shortCount = 11;
+        } else {
+          longCount = 0;
+          shortAttempt = 12;
+          shortCount = 15;
+        }
+      } else {
+        timeDisplay.innerText = "Time: 2 Hours";
+        mcqCount = 10;
+        if (hasLongQuestions && poolLongs.length > 0) {
+          longCount = 2;
+          shortAttempt = 12;
+          shortCount = 16;
+        } else {
+          longCount = 0;
+          shortAttempt = 20;
+          shortCount = 24;
+        }
+      }
+
+      currentPaperState.mcqs = getRandom(poolMCQs, mcqCount);
+      currentPaperState.shorts = getRandom(poolShorts, shortCount);
+      currentPaperState.longs = longCount > 0 ? getRandom(poolLongs, longCount + 1) : [];
+      currentPaperState.shortAttempt = shortAttempt;
+
+      renderCurrentPaper(false);
+    }
+
+    function renderCurrentPaper(isBoardFullModel) {
+      const paperContent = document.getElementById('paperContent');
+      let html = '';
+
+      if (isBoardFullModel) {
+        html += `
+          <div>
+            <div class="flex justify-between font-bold border-b border-black pb-1 mb-2">
+              <span>PART - I (Objective / MCQs)</span>
+              <span>(10 &times; 1 = 10 Marks)</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+              ${currentPaperState.mcqs.map((m, i) => `
+                <div class="editable-q border-b border-gray-200 pb-1.5" onclick="openReplaceModal('mcq', ${i})">
+                  <p class="font-bold text-gray-900">${i+1}. ${m.q}</p>
+                  <div class="grid grid-cols-2 gap-1 text-[11px] text-gray-700 mt-1 pl-2">
+                    <span>${m.a}</span><span>${m.b}</span><span>${m.c}</span><span>${m.d}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <div class="flex justify-between font-bold border-b border-black pb-1 mb-2">
+              <span>PART - II (Subjective - Short Answer Questions)</span>
+              <span>(Attempt 4 from each section &bull; Total: 24 Marks)</span>
+            </div>
+
+            <div class="mb-3">
+              <p class="text-xs font-bold text-gray-900 mb-1">Q2: Answer any FOUR (4) of the following: (4 &times; 2 = 8 Marks)</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-1 text-xs">
+                ${currentPaperState.shorts.slice(0, 6).map((s, idx) => `
+                  <div class="editable-q p-1 border-b border-gray-200" onclick="openReplaceModal('short', ${idx})">
+                    <strong>(${idx+1})</strong> ${s.q}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <p class="text-xs font-bold text-gray-900 mb-1">Q3: Answer any FOUR (4) of the following: (4 &times; 2 = 8 Marks)</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-1 text-xs">
+                ${currentPaperState.shorts.slice(6, 12).map((s, idx) => `
+                  <div class="editable-q p-1 border-b border-gray-200" onclick="openReplaceModal('short', ${idx + 6})">
+                    <strong>(${idx+1})</strong> ${s.q}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <p class="text-xs font-bold text-gray-900 mb-1">Q4: Answer any FOUR (4) of the following: (4 &times; 2 = 8 Marks)</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-1 text-xs">
+                ${currentPaperState.shorts.slice(12, 18).map((s, idx) => `
+                  <div class="editable-q p-1 border-b border-gray-200" onclick="openReplaceModal('short', ${idx + 12})">
+                    <strong>(${idx+1})</strong> ${s.q}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <div class="flex justify-between font-bold border-b border-black pb-1 mb-2">
+              <span>PART - III (Detailed / Long Questions)</span>
+              <span>(Attempt any 2 &times; 8 = 16 Marks)</span>
+            </div>
+            <p class="text-xs italic mb-1.5">Note: Attempt any TWO (2) questions. Each question carries 8 marks:</p>
+            <div class="space-y-1.5 text-xs">
+              ${currentPaperState.longs.map((l, idx) => `
+                <div class="editable-q p-1" onclick="openReplaceModal('long', ${idx})">
+                  <strong>Q${idx + 5}:</strong> ${l.q} <strong>(8 Marks)</strong>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else {
+        const shortMarks = currentPaperState.shortAttempt * 2;
+        const mcqMarks = currentPaperState.mcqs.length * 1;
+        const longMarks = currentPaperState.longs.length > 0 ? (currentPaperState.longs.length > 1 ? 16 : 8) : 0;
+
+        html += `
+          <div>
+            <div class="flex justify-between font-bold border-b border-black pb-1 mb-2">
+              <span>PART - I (Objective / MCQs)</span>
+              <span>(${currentPaperState.mcqs.length} &times; 1 = ${mcqMarks} Marks)</span>
+            </div>
+            <div class="space-y-2 text-xs">
+              ${currentPaperState.mcqs.map((m, i) => `
+                <div class="editable-q" onclick="openReplaceModal('mcq', ${i})">
+                  <p class="font-bold text-gray-900">${i+1}. ${m.q}</p>
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-1 text-[11px] text-gray-700 mt-1 pl-2">
+                    <span>${m.a}</span><span>${m.b}</span><span>${m.c}</span><span>${m.d}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="pt-3">
+            <div class="flex justify-between font-bold border-b border-black pb-1 mb-2">
+              <span>PART - II (Short Answer Questions)</span>
+              <span>(Attempt any ${currentPaperState.shortAttempt} &times; 2 = ${shortMarks} Marks)</span>
+            </div>
+            <p class="text-xs italic mb-1">Answer any ${currentPaperState.shortAttempt} out of ${currentPaperState.shorts.length} questions:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+              ${currentPaperState.shorts.map((s, idx) => `
+                <div class="editable-q p-1 border-b border-gray-200" onclick="openReplaceModal('short', ${idx})">
+                  <strong>(${idx+1})</strong> ${s.q}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        if (currentPaperState.longs.length > 0) {
+          const attemptLong = currentPaperState.longs.length > 1 ? 2 : 1;
+          html += `
+            <div class="pt-3">
+              <div class="flex justify-between font-bold border-b border-black pb-1 mb-2">
+                <span>PART - III (Detailed / Long Questions)</span>
+                <span>(${attemptLong} &times; 8 = ${longMarks} Marks)</span>
+              </div>
+              <div class="space-y-2 text-xs">
+                ${currentPaperState.longs.map((l, idx) => `
+                  <div class="editable-q p-1" onclick="openReplaceModal('long', ${idx})">
+                    <strong>Q${idx + 3}:</strong> ${l.q} <strong>(8 Marks)</strong>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      paperContent.innerHTML = html;
+    }
+
+    // Modal Question Replacement
+    let activeReplaceTarget = { type: null, index: null };
+
+    function openReplaceModal(type, index) {
+      activeReplaceTarget = { type, index };
+      const modal = document.getElementById('replaceModal');
+      const list = document.getElementById('replaceList');
+      modal.classList.remove('hidden');
+
+      let candidates = [];
+      currentPaperState.scopeUnits.forEach(u => {
+        if (type === 'mcq') candidates.push(...masterBookData[u].mcqs);
+        else if (type === 'short') candidates.push(...masterBookData[u].shorts);
+        else if (type === 'long') candidates.push(...masterBookData[u].longs);
+      });
+
+      list.innerHTML = candidates.map((item, idx) => `
+        <div onclick="selectReplacement(${idx})" class="p-2.5 bg-gray-50 hover:bg-emerald-50 border border-gray-200 rounded-lg cursor-pointer transition">
+          <p class="font-bold text-gray-800">${item.q}</p>
+          ${item.a && item.b ? `<p class="text-[10px] text-gray-500 mt-1">${item.a} | ${item.b} | ${item.c} | ${item.d}</p>` : ''}
+          ${item.a && !item.b ? `<p class="text-[10px] text-gray-500 mt-1">Ans: ${item.a}</p>` : ''}
+        </div>
+      `).join('');
+    }
+
+    function selectReplacement(candidateIdx) {
+      const { type, index } = activeReplaceTarget;
+      let candidates = [];
+      currentPaperState.scopeUnits.forEach(u => {
+        if (type === 'mcq') candidates.push(...masterBookData[u].mcqs);
+        else if (type === 'short') candidates.push(...masterBookData[u].shorts);
+        else if (type === 'long') candidates.push(...masterBookData[u].longs);
+      });
+
+      const chosen = candidates[candidateIdx];
+      if (type === 'mcq') currentPaperState.mcqs[index] = chosen;
+      else if (type === 'short') currentPaperState.shorts[index] = chosen;
+      else if (type === 'long') currentPaperState.longs[index] = chosen;
+
+      closeReplaceModal();
+      const isBoard = (document.getElementById('tmMarks').value === "50" && document.getElementById('tmRange').value === "all");
+      renderCurrentPaper(isBoard);
+    }
+
+    function closeReplaceModal() {
+      document.getElementById('replaceModal').classList.add('hidden');
+    }
+
+    // Practice Quiz Logic
+    const quiz9thQuestions = [
+      { q: "The primary function of a system is:", o: ["Work alone", "Achieve a common goal", "Entertainment", "Make devices"], a: 1 },
+      { q: "ASCII stands for:", o: ["American Standard Code for Information Interchange", "Asian Standard Code", "Applied Standard Code", "All Standard Code"], a: 0 },
+      { q: "In binary addition, 1 + 1 equals:", o: ["2", "0 with carry 1", "1 with carry 0", "11"], a: 1 },
+      { q: "Which Boolean expression represents the OR operation?", o: ["A . B", "A + B", "A'", "AB"], a: 1 },
+      { q: "Which logic gate outputs true only if both inputs are true?", o: ["OR gate", "AND gate", "XOR gate", "NOT gate"], a: 1 },
+      { q: "What is the first step in the systematic troubleshooting process?", o: ["Test Theory", "Identify Problem", "Implement Solution", "Document"], a: 1 },
+      { q: "Which networking device directs packets between different networks?", o: ["Switch", "Hub", "Router", "Modem"], a: 2 },
+      { q: "Which layer of the OSI model uses IP addresses for routing?", o: ["Transport", "Network Layer", "Physical", "Data Link"], a: 1 },
+      { q: "Breaking down a complex problem into smaller parts is called:", o: ["Abstraction", "Decomposition", "Algorithm", "Dry Run"], a: 1 },
+      { q: "Which HTML tag is used to create a hyperlink?", o: ["<link>", "<a>", "<href>", "<nav>"], a: 1 },
+      { q: "What is the primary purpose of CSS?", o: ["Database logic", "Visual styling of HTML", "Hardware control", "Server communication"], a: 1 },
+      { q: "Which of the following is an example of qualitative data?", o: ["Age", "Favourite ice cream flavors", "Test marks", "Height"], a: 1 },
+      { q: "Which of the following is not a subfield of AI?", o: ["Machine Learning", "Natural Language Processing", "DBMS", "Computer Vision"], a: 2 },
+      { q: "What does 2FA provide in computer security?", o: ["Speed booster", "Extra layer of authentication", "Password remover", "Antivirus scan"], a: 1 },
+      { q: "What is the origin meaning of the word 'entrepreneur'?", o: ["To innovate", "To undertake", "To earn money", "To organize staff"], a: 1 }
+    ];
+
+    let qIdx = 0, qScore = 0, selectedQ = null;
+
+    function loadPracticeQuiz() {
+      if (qIdx < quiz9thQuestions.length) {
+        document.getElementById('questionCount').innerText = `Question ${qIdx + 1} of ${quiz9thQuestions.length}`;
+        document.getElementById('questionText').innerText = quiz9thQuestions[qIdx].q;
+        const container = document.getElementById('optionsContainer');
+        container.innerHTML = "";
+        quiz9thQuestions[qIdx].o.forEach((opt, i) => {
+          const b = document.createElement('button');
+          b.className = "w-full text-left p-2.5 border border-gray-200 rounded-lg text-xs font-medium hover:bg-emerald-50 transition";
+          b.innerText = opt;
+          b.onclick = () => {
+            selectedQ = i;
+            document.getElementById('nextBtn').disabled = false;
+          };
+          container.appendChild(b);
+        });
+      } else {
+        document.getElementById('quizScreen').classList.add('hidden');
+        document.getElementById('resultScreen').classList.remove('hidden');
+        document.getElementById('scoreDisplay').innerText = `${qScore} / ${quiz9thQuestions.length}`;
+      }
+    }
+
+    function nextQuestion() {
+      if (selectedQ === quiz9thQuestions[qIdx].a) qScore++;
+      qIdx++;
+      document.getElementById('nextBtn').disabled = true;
+      selectedQ = null;
+      loadPracticeQuiz();
+    }
+
+    function restartQuiz() {
+      qIdx = 0; qScore = 0;
+      document.getElementById('resultScreen').classList.add('hidden');
+      document.getElementById('quizScreen').classList.remove('hidden');
+      loadPracticeQuiz();
+    }
+
+    // Default initialization
+    calculateFeeEstimate();
+    loadPracticeQuiz();
+  </script>
+</body>
+</html>
